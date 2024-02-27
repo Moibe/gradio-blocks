@@ -25,7 +25,7 @@ def predict(text_input, dropdown):
 
 
 with gr.Blocks() as block:
-    text_input = gr.Text(label="Input")
+    text_input = gr.Text(label="Input182")
     dropdown = gr.Dropdown(["first", "second", "third"], type="index")
     local_data = gr.JSON({}, label="Local Storage")
 
