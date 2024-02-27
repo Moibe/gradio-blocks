@@ -1,6 +1,6 @@
 import gradio as gr 
 
-from transformers import pipeline
+#from transformers import pipeline
 
 #pipe = pipeline("translation", model="t5-base")
 
