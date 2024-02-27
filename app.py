@@ -8,10 +8,10 @@ get_local_storage = """
        globalThis.getStorage = (key, value)=>{
         return JSON.parse(localStorage.getItem(key))
       }
-       const text_input =  getStorage('text_input')
+       const text_inputAMLO =  getStorage('text_input')
        const dropdown =  getStorage('dropdown')
        const local_data =  getStorage('local_data')
-       return [text_input, dropdown, local_data];
+       return [text_inputAMLO, dropdown, local_data];
       }
     """
 
