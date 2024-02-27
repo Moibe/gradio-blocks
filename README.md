@@ -1,6 +1,6 @@
 ---
 title: Gradio Blocks
-emoji: 😻
+emoji: ✨
 colorFrom: indigo
 colorTo: pink
 sdk: gradio
