@@ -1,8 +1,4 @@
-import gradio as gr 
-
-#from transformers import pipeline
-
-#pipe = pipeline("translation", model="t5-base")
+import gradio as gr
 
 get_local_storage = """
     function() {
@@ -13,32 +9,35 @@ get_local_storage = """
         return JSON.parse(localStorage.getItem(key))
       }
        const text_input =  getStorage('text_input')
-       return text_input;
+       const dropdown =  getStorage('dropdown')
+       const local_data =  getStorage('local_data')
+       return [text_input, dropdown, local_data];
       }
     """
 
 
-def translate(text):
-    return text
+def predict(text_input, dropdown):
+    return {
+        "text": text_input,
+        "dropdown": dropdown,
+        "something_else": [text_input] * 3 + [dropdown],
+    }
 
-with gr.Blocks() as demo:
-    with gr.Row(): 
-        with gr.Column():
-            english = gr.Textbox(label="English text")
-            text_input = gr.Text(label="Input va allá")
-            text_input.change(None, text_input, None, _js="(v)=>{ setStorage('text_input',v) }")
-            translate_btn = gr.Button(value="Translate")
-        with gr.Column():
-            german = gr.Textbox(label="German Text")
 
-    translate_btn.click(translate, inputs=english, outputs=german)
-    examples = gr.Examples(examples=["I went to the supermarket yesterday.", "Helen is a good swimmer."],
-                        inputs=[english])
+with gr.Blocks() as block:
+    text_input = gr.Text(label="Input")
+    dropdown = gr.Dropdown(["first", "second", "third"], type="index")
+    local_data = gr.JSON({}, label="Local Storage")
 
-demo.load(
+    dropdown.change(None, dropdown, None, _js="(v)=>{ setStorage('dropdown',v) }")
+    text_input.change(None, text_input, None, _js="(v)=>{ setStorage('text_input',v) }")
+    local_data.change(None, local_data, None, _js="(v)=>{ setStorage('local_data',v) }")
+    btn = gr.Button("Set New Data")
+    btn.click(fn=predict, inputs=[text_input, dropdown], outputs=[local_data])
+    block.load(
         None,
         inputs=None,
-        outputs=text_input,
+        outputs=[text_input, dropdown, local_data],
         _js=get_local_storage,
     )
-demo.launch(debug=True)
+block.launch(debug=True)
