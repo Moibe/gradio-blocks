@@ -11,7 +11,8 @@ get_local_storage = """
        const text_inputAMLO =  getStorage('text_input')
        const dropdown =  getStorage('dropdown')
        const local_data =  getStorage('local_data')
-       return [text_inputAMLO, dropdown, local_data];
+       MOI = "Moisés"
+       return [text_inputAMLO, dropdown, local_data, MOI];
       }
     """
 
