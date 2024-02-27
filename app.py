@@ -11,7 +11,7 @@ get_local_storage = """
        const text_inputAMLO =  getStorage('text_input')
        const dropdown =  getStorage('dropdown')
        const local_data =  getStorage('local_data')
-       MOI = "Moisés"
+       globalThis.MOI = "Moisés"
        return [text_inputAMLO, dropdown, local_data, MOI];
       }
     """
@@ -26,7 +26,7 @@ def predict(text_input, dropdown):
 
 
 with gr.Blocks() as block:
-    text_input = gr.Text(label="Input182")
+    text_input = gr.Text(label="Input183")
     dropdown = gr.Dropdown(["first", "second", "third"], type="index")
     local_data = gr.JSON({}, label="Local Storage")
 
@@ -35,10 +35,16 @@ with gr.Blocks() as block:
     local_data.change(None, local_data, None, _js="(v)=>{ setStorage('local_data',v) }")
     btn = gr.Button("Set New Data")
     btn.click(fn=predict, inputs=[text_input, dropdown], outputs=[local_data])
-    block.load(
+    valores = block.load(
         None,
         inputs=None,
         outputs=[text_input, dropdown, local_data],
         _js=get_local_storage,
     )
 block.launch(debug=True)
+
+# Accede al valor de MOI
+moi = valores[3]
+
+# Imprime el valor de MOI
+print(f"MOI: {moi}")
