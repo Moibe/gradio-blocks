@@ -11,8 +11,7 @@ get_local_storage = """
         return localStorage.getItem(key)
       }
        
-       globalThis.MOI = "Moisés"
-       return [text_inputAMLO, dropdown, local_data, MOI];
+       return [text_input, local_data];
       }
     """
 
@@ -29,24 +28,16 @@ with gr.Blocks() as block:
     tokens_label = gr.Label("Etiqueta")
     
     text_input = gr.Text(label="Input183")
-    dropdown = gr.Dropdown(["first", "second", "third"], type="index")
     local_data = gr.JSON({}, label="Resultado")
 
-    dropdown.change(None, dropdown, None, _js="(v)=>{ setStorage('dropdown',v) }")
     text_input.change(None, text_input, None, _js="(v)=>{ getStorage('text_input') }")
     local_data.change(None, local_data, None, _js="(v)=>{ setStorage('local_data',v) }")
     btn = gr.Button("Set New Data")
-    btn.click(fn=predict, inputs=[text_input, dropdown], outputs=[local_data])
+    btn.click(fn=predict, inputs=[text_input], outputs=[local_data])
     valores = block.load(
         None,
         inputs=None,
-        outputs=[text_input, dropdown, local_data],
+        outputs=[text_input, local_data],
         _js=get_local_storage,
     )
 block.launch(debug=True)
-
-# Accede al valor de MOI
-moi = valores[3]
-
-# Imprime el valor de MOI
-print(f"MOI: {moi}")
