@@ -6,7 +6,8 @@ get_local_storage = """
         localStorage.setItem(key, JSON.stringify(value))
       }
        globalThis.getStorage = (key, value)=>{
-        console.log("Dentro de getStorage")
+        obtencion = localStorage.getItem(key)
+        console.log("Dentro de getStorage:", obtencion)
         return localStorage.getItem(key)
       }
        const text_inputAMLO =  getStorage('text_input')
