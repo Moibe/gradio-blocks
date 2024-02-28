@@ -26,10 +26,11 @@ def predict(text_input, dropdown):
 
 
 with gr.Blocks() as block:
-    tokens_label = gr.Label(_js="(v)=>{ getStorage('text_input') }")
+    tokens_label = gr.Label("Etiqueta")
+    
     text_input = gr.Text(label="Input183")
     dropdown = gr.Dropdown(["first", "second", "third"], type="index")
-    local_data = gr.JSON({}, label="Local Storage")
+    local_data = gr.JSON({}, label="Resultado")
 
     dropdown.change(None, dropdown, None, _js="(v)=>{ setStorage('dropdown',v) }")
     text_input.change(None, text_input, None, _js="(v)=>{ getStorage('text_input') }")
