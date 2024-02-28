@@ -10,9 +10,7 @@ get_local_storage = """
         console.log("Dentro de getStorage:", obtencion)
         return localStorage.getItem(key)
       }
-       const text_inputAMLO =  getStorage('text_input')
-       const dropdown =  getStorage('dropdown')
-       const local_data =  getStorage('local_data')
+       
        globalThis.MOI = "Moisés"
        return [text_inputAMLO, dropdown, local_data, MOI];
       }
