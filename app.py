@@ -6,6 +6,7 @@ get_local_storage = """
         localStorage.setItem(key, JSON.stringify(value))
       }
        globalThis.getStorage = (key, value)=>{
+        console.log("Dentro de getStorage")
         return localStorage.getItem(key)
       }
        const text_inputAMLO =  getStorage('text_input')
@@ -31,7 +32,7 @@ with gr.Blocks() as block:
     local_data = gr.JSON({}, label="Local Storage")
 
     dropdown.change(None, dropdown, None, _js="(v)=>{ setStorage('dropdown',v) }")
-    text_input.change(None, text_input, None, _js="(v)=>{ getStoragetuputamadre('text_input') }")
+    text_input.change(None, text_input, None, _js="(v)=>{ getStorage('text_input') }")
     local_data.change(None, local_data, None, _js="(v)=>{ setStorage('local_data',v) }")
     btn = gr.Button("Set New Data")
     btn.click(fn=predict, inputs=[text_input, dropdown], outputs=[local_data])
