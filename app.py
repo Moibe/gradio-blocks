@@ -3,36 +3,58 @@ import gradio as gr
 get_local_storage = """
     function() {
       globalThis.setStorage = (key, value)=>{
-        localStorage.setItem(key, JSON.stringify(value))
+        localStorage.setItem(key, value)
       }
        globalThis.getStorage = (key, value)=>{
         obtencion = localStorage.getItem(key)
         console.log("Dentro de getStorage:", obtencion)
-        return localStorage.getItem(key)
+        return obtencion
       }
+
+       if (!localStorage.getItem('tokens')) {
+        localStorage.setItem('tokens', 5);
+        }
+
+        const legado = localStorage.getItem('tokens');
+
+        return legado;
        
-       return [text_input, local_data];
       }
     """
 
+def predict(text_input, tokens_label):
+   
+    tokens_texto = int(tokens_label) - 1
+    resultado_texto = "Hola " + text_input + ", éste es el resultado." 
+    print("Tokens_Label:", tokens_label)
 
-def predict(text_input):
-    return "Hola mundo, éste es el resultado."
+    if tokens_texto > 0:
+        
+        print("Saldo Positivo")
+        return tokens_texto, resultado_texto, gr.Button(interactive=True)
+
+    else:
+    
+        print("Saldo negativo")
+        return tokens_texto, resultado_texto, gr.Button(interactive=False)
 
 with gr.Blocks() as block:
-    tokens_label = gr.Label("Etiqueta")
-    
-    text_input = gr.Text(label="Input183")
-    resultadoFinal = gr.Text(label="ResulAquí")
 
-    text_input.change(None, text_input, None, _js="(v)=>{ getStorage('text_input') }")
-    # resultadoFinal.change(None, local_data, None, _js="(v)=>{ setStorage('local_data',v) }")
-    btn = gr.Button("Enviar")
-    btn.click(fn=predict, inputs=[text_input], outputs=[resultadoFinal])
-    valores = block.load(
+    tokens_label = gr.Text(label="Tokens Disponibles", interactive = False)
+    text_input = gr.Text(label="Tu Nombre:")
+    resultadoFinal = gr.Text(label="Resultado")
+    
+    #text_input.change(None, tokens_label, tokens_label, js="(v)=>{ getStorage('text_input',v) }")
+    tokens_label.change(None, tokens_label, None, js="(v)=>{ setStorage('tokens',v) }")
+
+    #resultadoFinal.change(None, text_input, resultadoFinal, js="(v)=>{ getStorage('text_input') }")
+    btn = gr.Button("Enviar", icon="aiicon.png", interactive = True)
+    btn.click(fn=predict, inputs=[text_input, tokens_label], outputs=[tokens_label, resultadoFinal, btn])
+ 
+    block.load(
         None,
         inputs=None,
-        outputs=[text_input, local_data],
-        _js=get_local_storage,
+        outputs=[tokens_label],
+        js=get_local_storage,
     )
 block.launch(debug=True)
