@@ -72,6 +72,9 @@ get_local_storage = """
       }
     """
 
+def banner():
+    print("Esto es un BANNER.")
+
 def predict(text_input, tokens_label):
    
     tokens_texto = int(tokens_label) - 1
@@ -107,7 +110,7 @@ with gr.Blocks() as block:
     
  
     block.load(
-        None,
+        fn=banner,
         inputs=None,
         outputs=[tokens_label],
         _js=get_local_storage,
