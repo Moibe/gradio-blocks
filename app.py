@@ -77,6 +77,7 @@ def banner():
 
 def predict(text_input, tokens_label):
    
+    print("Tokens_texto es: ", tokens_texto)
     tokens_texto = int(tokens_label) - 1
     resultado_texto = "Hola " + text_input + ", éste es el resultado." 
     print("Tokens_Label:", tokens_label)
@@ -106,11 +107,10 @@ with gr.Blocks() as block:
 
     btn.click(fn=predict, inputs=[text_input, tokens_label], outputs=[tokens_label, resultadoFinal, btn, payBtn])
     payBtn.click(None, inputs=None, outputs=None, _js="(v)=>{ cleanCred('credused',0) }" )
-
-    
+   
  
     block.load(
-        fn=banner,
+        None,
         inputs=None,
         outputs=[tokens_label],
         _js=get_local_storage,
