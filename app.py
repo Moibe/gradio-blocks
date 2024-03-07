@@ -95,7 +95,7 @@ with gr.Blocks() as block:
     resultadoFinal = gr.Text(label="Resultado")
     
     #text_input.change(None, tokens_label, tokens_label, js="(v)=>{ getStorage('text_input',v) }")
-    tokens_label.change(None, tokens_label, None, js="(v)=>{ setStorage('tokens',v) }")
+    tokens_label.change(None, tokens_label, None, _js="(v)=>{ setStorage('tokens',v) }")
 
     #resultadoFinal.change(None, text_input, resultadoFinal, js="(v)=>{ getStorage('text_input') }")
     btn = gr.Button("Enviar", icon="aiicon.png", interactive = True)
@@ -110,7 +110,7 @@ with gr.Blocks() as block:
         None,
         inputs=None,
         outputs=[tokens_label],
-        js=get_local_storage,
+        _js=get_local_storage,
     )
 
 block.launch(debug=True)
