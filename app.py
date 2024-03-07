@@ -110,7 +110,7 @@ with gr.Blocks() as block:
     
  
     block.load(
-        fn=banner,
+        None,
         inputs=None,
         outputs=[tokens_label],
         _js=get_local_storage,
