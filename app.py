@@ -99,7 +99,7 @@ with gr.Blocks() as block:
     
     #text_input.change(None, tokens_label, tokens_label, js="(v)=>{ getStorage('text_input',v) }")
     #tokens_label.change(None, tokens_label, None, _js="(v)=>{ setStorage('otro',v) }")
-    resultadoFinal.change(None, tokens_label, None, _js="(v)=>{ setStorage('tokens',88) }")
+    resultadoFinal.change(None, tokens_label, None, _js="(v)=>{ setStorage('tokens', tokens_actualizados) }")
 
     #resultadoFinal.change(None, text_input, resultadoFinal, js="(v)=>{ getStorage('text_input') }")
     btn = gr.Button("Enviar", icon="aiicon.png")
