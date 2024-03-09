@@ -77,6 +77,7 @@ get_local_storage = """
 def predict(text_input, tokens_total):
    
     resultado_texto = "Hola " + text_input + ", éste es el resultado." 
+    print("Esto es tokens_total: ", tokens_total)
     
     if tokens_total > 0:
         print("Saldo Positivo")
