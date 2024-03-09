@@ -74,21 +74,24 @@ get_local_storage = """
       }
     """
 
-def predict(text_input, tokens_label):
+def predict(text_input, tokens_total):
    
-    print("Tokens_label es: ", tokens_label)
-    tokens_actualizados = int(tokens_label) - 1
     resultado_texto = "Hola " + text_input + ", éste es el resultado." 
-    print("Tokens_Label:", tokens_label)
-
-    if tokens_actualizados > 0:
+    
+    if tokens_total > 0:
         print("Saldo Positivo")
-        return tokens_actualizados, resultado_texto, gr.Button(interactive=True), gr.Button(visible=False)
+        return tokens_total, resultado_texto, gr.Button(interactive=True), gr.Button(visible=False)
 
     else:
     
         print("Saldo negativo")
-        return tokens_actualizados, resultado_texto, gr.Button(interactive=False), gr.Button(visible=True)
+        return tokens_total, resultado_texto, gr.Button(interactive=False), gr.Button(visible=True)
+    
+def deduct(tokens_total):
+  
+   print("Estoy en deduct.")
+   tokens_actualizados = int(tokens_total) - 1
+   return tokens_actualizados
 
 
 with gr.Blocks() as block:
@@ -101,7 +104,7 @@ with gr.Blocks() as block:
 
     #text_input.change(None, tokens_label, tokens_label, js="(v)=>{ getStorage('text_input',v) }")
     #tokens_label.change(None, tokens_total, None, _js="(v)=>{ setStorage('otro',v) }")
-    resultadoFinal.change(None, tokens_total, None, _js="(v)=>{ setStorage('tokens', v) }")
+    resultadoFinal.change(deduct, tokens_total, None, _js="(v)=>{ setStorage('tokens', v) }")
 
     #resultadoFinal.change(None, text_input, resultadoFinal, js="(v)=>{ getStorage('text_input') }")
     btn = gr.Button("Enviar", icon="aiicon.png")
