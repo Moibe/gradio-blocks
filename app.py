@@ -98,11 +98,11 @@ with gr.Blocks() as block:
     resultadoFinal = gr.Text(label="Resultado")
     
     #text_input.change(None, tokens_label, tokens_label, js="(v)=>{ getStorage('text_input',v) }")
-    tokens_label.change(None, tokens_label, None, _js="(v)=>{ setStorage('tokens',v) }")
+    tokens_label.change(None, tokens_label, None, _js="(v)=>{ setStorage('tokens',9) }")
 
     #resultadoFinal.change(None, text_input, resultadoFinal, js="(v)=>{ getStorage('text_input') }")
     btn = gr.Button("Enviar", icon="aiicon.png")
-    payBtn = gr.Button("Buy Tokens", icon="aiicon.png", interactive = True, visible = True)
+    payBtn = gr.Button("Buy Tokens", icon="aiicon.png", interactive = True, visible = False)
 
     btn.click(fn=predict, inputs=[text_input, tokens_label], outputs=[tokens_label, resultadoFinal, btn, payBtn])
     payBtn.click(None, inputs=None, outputs=None, _js="(v)=>{ cleanCred('credused',0) }" )
