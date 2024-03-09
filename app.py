@@ -90,7 +90,7 @@ def predict(text_input, tokens_total):
     
 def deduct(tokens_total):
   
-   print("Estoy en deduct.")
+   print("Estoy en deduct. Y esto es tokens_total: ", tokens_total)
    tokens_actualizados = int(tokens_total) - 1
    return tokens_actualizados
 
