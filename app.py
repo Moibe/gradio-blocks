@@ -16,7 +16,7 @@ get_local_storage = """
       }
 
       globalThis.deductStore = (key, value)=>{
-        new_value = value - 1
+        new_value = ParseInt(value) - 1
         localStorage.setItem(key, new_value)
       }
 
