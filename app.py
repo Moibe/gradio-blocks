@@ -15,6 +15,8 @@ get_local_storage = """
         localStorage.setItem(key, value)
       }
 
+      //Todo ésto lo hará al cargarse el load.
+
       //El token se deberá obtener de todas formas: 
       // Obtener la URL actual
         const urlActual = window.location;
@@ -72,9 +74,6 @@ get_local_storage = """
       }
     """
 
-def banner():
-    print("Esto es un BANNER.")
-
 def predict(text_input, tokens_label):
    
     print("Tokens_label es: ", tokens_label)
@@ -102,8 +101,8 @@ with gr.Blocks() as block:
     tokens_label.change(None, tokens_label, None, _js="(v)=>{ setStorage('tokens',v) }")
 
     #resultadoFinal.change(None, text_input, resultadoFinal, js="(v)=>{ getStorage('text_input') }")
-    btn = gr.Button("Enviar", icon="aiicon.png", interactive = True)
-    payBtn = gr.Button("Buy Tokens", icon="aiicon.png", interactive = True, visible = False)
+    btn = gr.Button("Enviar", icon="aiicon.png")
+    payBtn = gr.Button("Buy Tokens", icon="aiicon.png", interactive = True, visible = True)
 
     btn.click(fn=predict, inputs=[text_input, tokens_label], outputs=[tokens_label, resultadoFinal, btn, payBtn])
     payBtn.click(None, inputs=None, outputs=None, _js="(v)=>{ cleanCred('credused',0) }" )
