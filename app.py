@@ -101,11 +101,11 @@ with gr.Blocks() as block:
     text_input = gr.Text(label="Tu Nombre:")
     resultadoFinal = gr.Text(label="Resultado")
     
-    alonzo = "texto_random"
+    
 
     #text_input.change(None, tokens_label, tokens_label, js="(v)=>{ getStorage('text_input',v) }")
     #tokens_label.change(None, tokens_total, None, _js="(v)=>{ setStorage('otro',v) }")
-    resultadoFinal.change(deduct, "hola", tokens_total, _js="(v)=>{ setStorage('tokens', v) }")
+    resultadoFinal.change(deduct, resultadoFinal, tokens_total, _js="(v)=>{ setStorage('tokens', v) }")
 
     #resultadoFinal.change(None, text_input, resultadoFinal, js="(v)=>{ getStorage('text_input') }")
     btn = gr.Button("Enviar", icon="aiicon.png")
