@@ -93,7 +93,7 @@ def predict(text_input, tokens_label):
 
 with gr.Blocks() as block:
 
-    tokens_label = gr.Text(label="Tokens Disponibles", interactive = True)
+    tokens_total = gr.Text(label="Tokens Disponibles", interactive = True)
     text_input = gr.Text(label="Tu Nombre:")
     resultadoFinal = gr.Text(label="Resultado")
     
@@ -107,14 +107,14 @@ with gr.Blocks() as block:
     btn = gr.Button("Enviar", icon="aiicon.png")
     payBtn = gr.Button("Buy Tokens", icon="aiicon.png", interactive = True, visible = True)
 
-    btn.click(fn=predict, inputs=[text_input, tokens_label], outputs=[tokens_label, resultadoFinal, btn, payBtn])
+    btn.click(fn=predict, inputs=[text_input, tokens_total], outputs=[tokens_total, resultadoFinal, btn, payBtn])
     payBtn.click(None, inputs=None, outputs=None, _js="(v)=>{ cleanCred('credused',0) }" )
    
  
     block.load(
         None,
         inputs=None,
-        outputs=[tokens_label],
+        outputs=[tokens_total],
         _js=get_local_storage,
     )
 
